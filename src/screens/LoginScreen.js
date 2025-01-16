@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Button, Platform, StyleSheet } from 'react-native';
-import { signInWithGoogle, signInWithApple } from '../services/authService';
+import { signInWithGoogle, signInWithApple, FacebookSignIn} from '../services/authService';
 
 const LoginScreen = ({ navigation }) => {
   const handleGoogleSignIn = async () => {
@@ -20,7 +20,14 @@ const LoginScreen = ({ navigation }) => {
       console.error('Apple Sign-In error:', error);
     }
   };
-
+  const handleFbSignIn = async () => {
+    try {
+      await FacebookSignIn();
+      navigation.replace('Home');
+    } catch (error) {
+      console.error('Facebook Sign-In error:', error);
+    }
+  };
   return (
     <View style={styles.container}>
       <Button title="Sign In with Google" onPress={handleGoogleSignIn} />

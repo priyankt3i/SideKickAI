@@ -1,22 +1,35 @@
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { appleAuth } from '@invertase/react-native-apple-authentication';
+import { AppleButton } from '@invertase/react-native-apple-authentication';
+import React from 'react';
+import { Button } from 'react-native';
 
-// Configure Google Sign-In
-GoogleSignin.configure({
-  webClientId: 'YOUR_WEB_CLIENT_ID',
-  offlineAccess: true,
-});
+function FacebookSignIn() {
+  return (
+    <Button
+      title="Facebook Sign-In"
+      onPress={() => onFacebookButtonPress().then(() => console.log('Signed in with Facebook!'))}
+    />
+  );
+}
 
-export const signInWithGoogle = async () => {
-  await GoogleSignin.hasPlayServices();
-  const userInfo = await GoogleSignin.signIn();
-  // Handle user information as needed
-};
+function signInWithApple() {
+  return (
+    <AppleButton
+      buttonStyle={AppleButton.Style.WHITE}
+      buttonType={AppleButton.Type.SIGN_IN}
+      style={{
+        width: 160,
+        height: 45,
+      }}
+      onPress={() => onAppleButtonPress().then(() => console.log('Apple sign-in complete!'))}
+    />
+  );
+}
 
-export const signInWithApple = async () => {
-  const appleAuthRequestResponse = await appleAuth.performRequest({
-    requestedOperation: appleAuth.Operation.LOGIN,
-    requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
-  });
-  // Handle user information as needed
+function signInWithGoogle() {
+  return (
+    <Button
+      title="Google Sign-In"
+      onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!'))}
+    />
+  );
 };
